@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">BIBLEOEXP</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/api/Books/search}">Books</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/api/users/reservations}">My Reservations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/api/users/loans}">My Loans</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/api/users/notifications}">My Notifications</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/statistics}">Statistics</a>
+            </li>
+            <li class="nav-item ml-auto">
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-3">
+    <h1>Loan List</h1>
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Loan ID</th>
+            <th>Borrow Date</th>
+            <th>Return Date</th>
+            <th>Book Title</th>
+            <th>User Name</th>
+            <th>Status</th>
+            <th>Actions</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="loan: ${loanList}">
+            <td th:text="${loan.id}"></td>
+            <td th:text="${loan.borrowDate}"></td>
+            <td th:text="${loan.returnDate}"></td>
+            <td th:text="${loan.book.title}"></td>
+            <td th:text="${loan.user.firstName + ' ' + loan.user.lastName}"></td>
+            <td th:text="${loan.status}"></td>
+
+
+            <td>
+                <form th:action="@{/api/users/loans/renew}" method="post">
+                    <input type="hidden" name="loanId" th:value="${loan.id}" />
+                    <button class="btn btn-primary" type="submit" th:if="${loan.status == T(biblioexp.bibleo.Entity.LoanStatus).ACTIVE}">Renew</button>
+                </form>
+                <form th:action="@{/api/users/loans/return}" method="post">
+                    <input type="hidden" name="loanId" th:value="${loan.id}" />
+                    <button class="btn btn-success" type="submit" th:if="${loan.status == T(biblioexp.bibleo.Entity.LoanStatus).ACTIVE}">Return</button>
+                </form>
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

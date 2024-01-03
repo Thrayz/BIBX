@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <h2 class="mb-4">Add Book</h2>
+
+    <form id="addBookForm" th:action="@{/api/Books/add}" method="post" enctype="application/x-www-form-urlencoded">
+        <!-- Include CSRF token -->
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+        <!-- Include input fields for book details -->
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="author">Author:</label>
+            <input type="text" class="form-control" id="author" name="author" required>
+        </div>
+
+        <div class="form-group">
+            <label for="nbrCopies">Number of Copies:</label>
+            <input type="number" class="form-control" id="nbrCopies" name="nbr_copies" required>
+        </div>
+
+        <div class="form-group">
+            <label for="avbCopies">Available Copies:</label>
+            <input type="number" class="form-control" id="avbCopies" name="avb_copies" required>
+        </div>
+
+        <div class="form-group">
+            <label for="datePub">Date of Publication:</label>
+            <input type="date" class="form-control" id="datePub" name="date_pub" required>
+        </div>
+
+        <!-- Include category selection dropdown -->
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select class="form-control" id="category" name="category" required>
+                <!-- Populate options based on categories in the system -->
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+            </select>
+        </div>
+
+        <!-- Use a submit button to submit the form -->
+        <button type="submit" class="btn btn-primary">Add Book</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

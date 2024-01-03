@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Statistics</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Library Statistics</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="loanedBooksChart" width="400" height="400"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="reservedBooksChart" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <canvas id="loanedBooksByBookChart" width="400" height="400"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="reservedBooksByBookChart" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener('DOMContentLoaded', function () {
+        var loanedBooksCtx = document.getElementById('loanedBooksChart').getContext('2d');
+        var loanedBooksChart = new Chart(loanedBooksCtx, {
+            type: 'bar',
+            data: {
+                labels: [[${loanedBooksByCategory.keySet()}]],
+                datasets: [{
+                    label: 'Loaned Books',
+                    data: [[${loanedBooksByCategory.values()}]],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var reservedBooksCtx = document.getElementById('reservedBooksChart').getContext('2d');
+        var reservedBooksChart = new Chart(reservedBooksCtx, {
+            type: 'bar',
+            data: {
+                labels: [[${reservedBooksByCategory.keySet()}]],
+                datasets: [{
+                    label: 'Reserved Books',
+                    data: [[${reservedBooksByCategory.values()}]],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var loanedBooksByBookCtx = document.getElementById('loanedBooksByBookChart').getContext('2d');
+        var loanedBooksByBookChart = new Chart(loanedBooksByBookCtx, {
+            type: 'bar',
+            data: {
+                labels: [[${loanedBooksByBook.keySet()}]],
+                datasets: [{
+                    label: 'Loaned Books',
+                    data: [[${loanedBooksByBook.values()}]],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var reservedBooksByBookCtx = document.getElementById('reservedBooksByBookChart').getContext('2d');
+        var reservedBooksByBookChart = new Chart(reservedBooksByBookCtx, {
+            type: 'bar',
+            data: {
+                labels: [[${reservedBooksByBook.keySet()}]],
+                datasets: [{
+                    label: 'Reserved Books',
+                    data: [[${reservedBooksByBook.values()}]],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+    /*]]>*/
+</script>
+
+</body>
+
+</html>

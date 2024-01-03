@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Book</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">BIBLEOEXP</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/api/Books/BookList}">Book Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/api/reservations}">Reservation Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/api/users/userList}">User Management</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-3">
+    <h2>Update Book</h2>
+
+    <form id="updateBookForm" th:object="${book}" method="post" th:action="@{/api/Books/update/{ISBN}(ISBN=${book.ISBN})}" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <input type="hidden" th:field="*{ISBN}">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" th:field="*{title}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="author">Author:</label>
+            <input type="text" id="author" th:field="*{author}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="nbrCopies">Number of Copies:</label>
+            <input type="number" id="nbrCopies" th:field="*{nbr_copies}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="avbCopies">Available Copies:</label>
+            <input type="number" id="avbCopies" th:field="*{avb_copies}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="datePub">Date of Publication:</label>
+            <input type="date" id="datePub" th:field="*{date_pub}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select id="category" th:field="*{category}" class="form-control" required>
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Book</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
