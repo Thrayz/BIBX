@@ -17,7 +17,6 @@
     </tr>
     </thead>
     <tbody>
-    <!-- Iterate over the list of reservations and display information for each reservation -->
     <tr th:each="reservation : ${reservationList}">
         <td th:text="${reservation.id}"></td>
         <td th:text="${reservation.book.title}"></td>

@@ -22,6 +22,23 @@
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>5.5.1</version> <!-- Use the latest version -->
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version> <!-- or the latest version -->
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 		</dependency>

@@ -35,6 +35,9 @@ public class Book {
 
     @Column(name = "date_publication")
     private String date_pub;
+    @Column(name = "image_url")
+    private String imageUrl; // New attribute for image URL
+
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", nullable = true)
@@ -62,6 +65,7 @@ public class Book {
         this.avb_copies = avb_copies;
         this.date_pub = date_pub;
         this.category = category;
+
     }
 
     public long getISBN() {
@@ -159,4 +163,13 @@ public class Book {
     public void setNotifications(Set<Notification> notifications) {
         this.notifications = notifications;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
 }

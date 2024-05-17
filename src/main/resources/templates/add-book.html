@@ -12,7 +12,7 @@
 <div class="container mt-5">
     <h2 class="mb-4">Add Book</h2>
 
-    <form id="addBookForm" th:action="@{/api/Books/add}" method="post" enctype="application/x-www-form-urlencoded">
+    <form id="addBookForm" th:action="@{/api/Books/add}" method="post" enctype="multipart/form-data">
         <!-- Include CSRF token -->
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
@@ -49,6 +49,12 @@
                 <!-- Populate options based on categories in the system -->
                 <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
             </select>
+        </div>
+
+        <!-- Include file input field for book image -->
+        <div class="form-group">
+            <label for="image">Book Image:</label>
+            <input type="file" class="form-control-file" id="image" name="file" accept="image/*" required>
         </div>
 
         <!-- Use a submit button to submit the form -->
