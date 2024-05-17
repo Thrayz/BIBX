@@ -24,6 +24,12 @@ public class CategoryServiceImp implements CategoryService{
     public List<Category> getAllCategories() {
         return CategoryRepository.findAll();
     }
+
+    @Override
+    public Category getCategoryByName(String name) {
+        return CategoryRepository.findByCategoryName(name);
+    }
+
     @Override
     public Category getCategoryById(long id) {
 // Optional<Category> Category = CategoryRepository.findById(id);

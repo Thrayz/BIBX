@@ -39,6 +39,7 @@ public class AuthController {
         List<Object> userPresentObj = userService.isUserPresent(user);
         if((Boolean) userPresentObj.get(0)){
             model.addAttribute("successMessage", userPresentObj.get(1));
+            System.out.println(user);
             return "auth/register";
         }
 

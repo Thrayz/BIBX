@@ -34,42 +34,46 @@
         </ul>
     </div>
 </nav>
-
+<form class="form-inline search-form" th:action="@{/api/Books/search}" method="get">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search query" name="query">
+    </div>
+    <div class="form-group">
+        <select class="form-control" name="criteria">
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="category">Category</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <select class="form-control" name="sort">
+            <option value="title">Sort by Title</option>
+            <option value="author">Sort by Author</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
 <div class="container mt-3">
     <h1>Book List</h1>
     <a th:href="@{'/api/Books/add'}" class="btn btn-success">Add Book</a>
-    <table class="table table-striped table-bordered">
-        <thead class="thead-dark">
-        <tr>
-            <th>ISBN</th>
-            <th>title</th>
-            <th>author</th>
-            <th>nbr_copies</th>
-            <th>avb_copies</th>
-            <th>Date of publication</th>
-            <th>Category</th>
-            <th>Actions</th>
-
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="Book: ${BookList}">
-            <td th:text="${Book.ISBN}"></td>
-            <td th:text="${Book.title}"></td>
-            <td th:text="${Book.author}"></td>
-            <td th:text="${Book.nbr_copies}"></td>
-            <td th:text="${Book.avb_copies}"></td>
-            <td th:text="${Book.date_pub}"></td>
-            <td th:text="${Book.category.categoryName}"></td>
-            <td>
-                <a th:href="@{'/api/Books/edit/' + ${Book.ISBN}}" class="btn btn-primary">Update</a>
-                <a th:href="@{'/api/Books/delete/' + ${Book.ISBN}}" class="btn btn-danger ">Delete</a>
-            </td>
-
-        </tr>
-        </tbody>
-    </table>
+    <div class="row mt-3">
+        <div class="col-md-4" th:each="book: ${BookList}">
+            <div class="card mb-3">
+                <img th:src="${book.imageUrl}" alt="Book Image" style="max-width: 100px; max-height: 100px;">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${book.title}"></h5>
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="${book.author}"></h6>
+                    <p class="card-text" th:text="${book.category.categoryName}"></p>
+                    <p class="card-text">ISBN: <span th:text="${book.ISBN}"></span></p>
+                    <p class="card-text">Number of Copies: <span th:text="${book.nbr_copies}"></span></p>
+                    <p class="card-text">Available Copies: <span th:text="${book.avb_copies}"></span></p>
+                    <p class="card-text">Date of Publication: <span th:text="${book.date_pub}"></span></p>
+                    <a th:href="@{'/api/Books/edit/' + ${book.ISBN}}" class="btn btn-primary mr-2">Update</a>
+                    <a th:href="@{'/api/Books/delete/' + ${book.ISBN}}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
